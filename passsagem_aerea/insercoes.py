@@ -16,9 +16,11 @@ def inserir_cliente(cpf, nome_cliente, data_nascimento):
     conn.close()
     print('-'*70)
     print('Cliente cadastrado com sucesso.')
+    print('-'*70)
+
+# função para cadastrar aeroportos
 
 
-#função para cadastrar aeroportos
 def cadastrar_aeroporto(nome_aeroporto, cidade_id):
     conn = conectar()
     cursor = conn.cursor()
@@ -32,9 +34,10 @@ def cadastrar_aeroporto(nome_aeroporto, cidade_id):
     conn.close()
     print('-'*70)
     print('Aeroporto cadastrado com sucesso.')
-    
+    print('-'*70)
 
-#função para cadastrar cidades
+
+# função para cadastrar cidades
 def cadastrar_cidade(nome_cidade, estado):
     conn = conectar()
     cursor = conn.cursor()
@@ -48,8 +51,11 @@ def cadastrar_cidade(nome_cidade, estado):
     conn.close()
     print('-'*70)
     print('Cidade cadastrada com sucesso.')
-    
-#função para cadastrar aeronaves
+    print('-'*70)
+
+# função para cadastrar aeronaves
+
+
 def cadastrar_aeronave(nome_aeronave, num_poltronas):
     conn = conectar()
     cursor = conn.cursor()
@@ -63,8 +69,11 @@ def cadastrar_aeronave(nome_aeronave, num_poltronas):
     conn.close()
     print('-'*70)
     print('Aeronave cadastrada com sucesso.')
-    
-#função para cadastrar trechos
+    print('-'*70)
+
+# função para cadastrar trechos
+
+
 def cadastrar_trecho(distancia, duracao, aeroporto_origem, aeroporto_destino):
     conn = conectar()
     cursor = conn.cursor()
@@ -77,4 +86,40 @@ def cadastrar_trecho(distancia, duracao, aeroporto_origem, aeroporto_destino):
     conn.commit()
     conn.close()
     print('-'*70)
-    print('Trecho cadastrada com sucesso.')
+    print('Trecho cadastrado com sucesso.')
+    print('-'*70)
+
+
+# função para cadastrar voos
+def cadastrar_voo(data, horario, aeronave_id, trecho_id):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        INSERT INTO voos (data, horario, aeronave_id, trecho_id)
+        VALUES (?,?,?,?)''',
+                   (data, horario, aeronave_id, trecho_id))
+
+    conn.commit()
+    conn.close()
+    print('-'*70)
+    print('Voo cadastrado com sucesso.')
+    print('-'*70)
+
+    
+
+# função para cadastrar funcionarios
+def cadastrar_funcionario(cpf, nome_funcionario):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        INSERT INTO funcionarios (cpf, nome_funcionario)
+        VALUES (?,?)''',
+                   (cpf, nome_funcionario))
+
+    conn.commit()
+    conn.close()
+    print('-'*70)
+    print('Funcionario cadastrado com sucesso.')
+    print('-'*70)
