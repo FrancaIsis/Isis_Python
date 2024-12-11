@@ -1,15 +1,15 @@
 import os
 import sqlite3
 from conexao import conectar
-from insercoes import inserir_cliente
-from insercoes import cadastrar_aeroporto
-from insercoes import cadastrar_cidade
-from insercoes import cadastrar_aeronave
-from insercoes import cadastrar_trecho
+from insercoes import inserir_cliente, cadastrar_aeroporto, cadastrar_cidade,cadastrar_aeronave, cadastrar_trecho
 from insercoes import cadastrar_voo
 from insercoes import cadastrar_funcionario
 from consultas import consultar_clientes, consultar_voos, consultar_aeroportos, consultar_cidades
 from consultas import consultar_funcionarios, consultar_trechos, consultar_aeronaves
+from exclusoes import excluir_cliente, excluir_aeroporto
+from exclusoes import excluir_cidade, excluir_aeronave, excluir_trecho, excluir_voo, excluir_funcionario, excluir_aeronave
+from alteracoes import atualizar_data_nasc_cliente, atualizar_nome_cliente, atualizar_cidade_aeroporto, atualizar_nome_aeroporto
+
 
 while True:
 
@@ -68,6 +68,15 @@ while True:
                               '12 - visualizar cidades:\n'
                               '13 - visualizar aeronaves:\n'
                               '14 - visualizar aeroportos:\n'
+                              '15 - excluir clientes:\n'
+                              '16 - excluir aeroportos:\n'
+                              '17 - excluir cidade:\n'
+                              '18 - excluir aeronave:\n'
+                              '19 - excluir trecho:\n'
+                              '20 - excluir voo:\n'
+                              '21 - excluir funcionário:\n'
+                              '22 - alterar cliente:\n'
+                              '23 - alterar aeroporto:\n'
                               '100 - sair\n'))
 
             if opcao == 1:
@@ -119,32 +128,102 @@ while True:
                 cadastrar_funcionario(cpf, nome_funcionario)
 
             elif opcao == 8:
-                conectar()
+                
                 consultar_clientes()
 
             elif opcao == 9:
-                conectar()
+                
                 consultar_voos()
 
             elif opcao == 10:
-                conectar()
+                
                 consultar_trechos()
 
             elif opcao == 11:
-                conectar()
+                
                 consultar_funcionarios()
 
             elif opcao == 12:
-                conectar()
+                
                 consultar_cidades()
 
             elif opcao == 13:
-                conectar()
+                
                 consultar_aeronaves()
 
             elif opcao == 14:
-                conectar()
+                
                 consultar_aeroportos()
+                
+            elif opcao == 15:
+                
+                consultar_clientes()
+                cpf = input('Digite o CPF do cliente a ser excluído: ')
+                excluir_cliente(cpf)
+                
+            elif opcao == 16:
+                
+                consultar_aeroportos()
+                aeroporto_id = int(input('Digite o código do aeroporto a ser excluído: '))
+                excluir_aeroporto(aeroporto_id)
+                
+            elif opcao == 17:
+                
+                consultar_cidades()
+                cidade_id = int(input('Digite o código da cidade a ser excluída: '))
+                excluir_cidade(cidade_id)
+
+            elif opcao == 18:
+                
+                consultar_trechos()
+                trecho_id = int(input('Digite o código do trecho a ser excluído: '))
+                excluir_trecho(trecho_id)
+                
+            elif opcao == 19:
+                
+                consultar_aeronaves()
+                aeronave_id = int(input('Digite o código da aeronave a ser excluída: '))
+                excluir_aeronave(aeronave_id)
+                
+            elif opcao == 20:
+                
+                consultar_voos()
+                voo_id = int(input('Digite o código do voo a ser excluído: '))
+                excluir_voo(voo_id)
+                
+            elif opcao == 21:
+                
+                consultar_funcionarios()
+                cpf = input('Digite o cpf do funcionário a ser excluído: ')
+                excluir_funcionario(cpf)
+                
+            elif opcao == 22:
+                
+                consultar_clientes()
+                cpf = input('Digite o cpf do cliente a ser atualizado: ')
+                atualiza = int(input('O que deseja alterar?\n'
+                                     '1 - nome\n'
+                                     '2 - data de nascimento\n'))
+                if atualiza == 1:
+                    nome = input('Digite o novo nome do cliente: \n')
+                    atualizar_nome_cliente(cpf, nome)
+                elif atualiza ==2:
+                    data_nascimento = input('Digite a data de nascimento correta: \n')
+                    atualizar_data_nasc_cliente(cpf, data_nascimento)
+                    
+            elif opcao == 23:
+                
+                consultar_aeroportos()
+                aeroporto_id = int(input('Digite o código do aeroporto a ser atualizado: '))
+                atualiza = int(input('O que deseja alterar?\n'
+                                     '1 - nome\n'
+                                     '2 - cidade\n'))
+                if atualiza == 1:
+                    nome = input('Digite o novo nome do aeroporto: \n')
+                    atualizar_nome_aeroporto(aeroporto_id, nome)
+                elif atualiza ==2:
+                    cidade_id = int(input('Digite o código da cidade correta: \n'))
+                    atualizar_cidade_aeroporto(aeroporto_id,cidade_id)
 
             elif opcao == 100:
                 print('Saindo...')
