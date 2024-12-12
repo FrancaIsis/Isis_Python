@@ -9,6 +9,9 @@ from consultas import consultar_funcionarios, consultar_trechos, consultar_aeron
 from exclusoes import excluir_cliente, excluir_aeroporto
 from exclusoes import excluir_cidade, excluir_aeronave, excluir_trecho, excluir_voo, excluir_funcionario, excluir_aeronave
 from alteracoes import atualizar_data_nasc_cliente, atualizar_nome_cliente, atualizar_cidade_aeroporto, atualizar_nome_aeroporto
+from alteracoes import atualizar_nome_cidade, atualizar_estado_cidade, atualizar_nome_aeronave, atualizar_poltrona_aeronave
+from alteracoes import atualizar_distancia_duracao_trecho, atualizar_origem_destino_trecho, atualizar_preco_trecho
+from alteracoes import atualizar_aeronave_trecho_voo, atualizar_data_horario_voo
 
 
 while True:
@@ -77,6 +80,10 @@ while True:
                               '21 - excluir funcionário:\n'
                               '22 - alterar cliente:\n'
                               '23 - alterar aeroporto:\n'
+                              '24 - alterar cidade:\n'
+                              '25 - alterar aeronave:\n'
+                              '26 - alterar trecho:\n'
+                              '27 - alterar voo:\n'
                               '100 - sair\n'))
 
             if opcao == 1:
@@ -107,10 +114,11 @@ while True:
             elif opcao == 5:
                 distancia = input('Digite a distância: ')
                 duracao = input('Digite o tempo de voo: ')
+                preco = int(input('Digite o preço do trecho: '))
                 aeroporto_origem = input('Digite o aeroporto de origem ')
                 aeroporto_destino = input('Digite o aeroporto de destino ')
                 conectar()
-                cadastrar_trecho(distancia, duracao,
+                cadastrar_trecho(distancia, duracao, preco,
                                  aeroporto_origem, aeroporto_destino)
 
             elif opcao == 6:
@@ -224,6 +232,72 @@ while True:
                 elif atualiza ==2:
                     cidade_id = int(input('Digite o código da cidade correta: \n'))
                     atualizar_cidade_aeroporto(aeroporto_id,cidade_id)
+                    
+            elif opcao == 24:
+                
+                consultar_cidades()
+                cidade_id = int(input('Digite o código da cidade a ser atualizada: '))
+                atualiza = int(input('O que deseja alterar?\n'
+                                     '1 - nome\n'
+                                     '2 - estado\n'))
+                if atualiza == 1:
+                    nome = input('Digite o novo nome da cidade: \n')
+                    atualizar_nome_cidade(cidade_id, nome)
+                elif atualiza ==2:
+                    estado = input('Digite o novo Estado: \n')
+                    atualizar_estado_cidade(cidade_id,estado)
+                    
+            elif opcao == 25:
+                
+                consultar_aeronaves()
+                aeronave_id = int(input('Digite o código da aeronave a ser atualizada: '))
+                atualiza = int(input('O que deseja alterar?\n'
+                                     '1 - nome\n'
+                                     '2 - número de poltronas\n'))
+                if atualiza == 1:
+                    nome = input('Digite o novo nome da aeronave: \n')
+                    atualizar_nome_aeronave(aeronave_id, nome)
+                elif atualiza ==2:
+                    num_poltronas = int(input('Digite o número de poltronas: \n'))
+                    atualizar_poltrona_aeronave(aeronave_id,num_poltronas)
+                    
+            elif opcao == 26:
+                
+                consultar_trechos()
+                trecho_id = int(input('Digite o código do trecho a ser atualizado: '))
+                atualiza = int(input('O que deseja alterar?\n'
+                                     '1 - distancia e duração do trecho:\n'
+                                     '2 - origem e destino\n'
+                                     '3 - preco\n'))
+                if atualiza == 1:
+                    distancia = int(input('Digite o nova distancia: \n'))
+                    duracao = input('Digite o tempo de duração do trecho: \n')
+                    atualizar_distancia_duracao_trecho(trecho_id, distancia, duracao)
+                elif atualiza == 2:
+                    aeroporto_origem = int(input('Digite o código do aeroporto de origem: \n'))
+                    aeroporto_destino = int(input('Digite o código do aeroporto de destino: \n'))
+                    atualizar_origem_destino_trecho(trecho_id, aeroporto_origem, aeroporto_destino)
+                elif atualiza == 3:
+                    preco = int(input('Digite o novo preço: \n'))
+                    atualizar_preco_trecho(trecho_id, preco)
+                    
+            elif opcao == 27:
+                
+                consultar_voos()
+                voo_id = int(input('Digite o código do voo a ser atualizado: '))
+                atualiza = int(input('O que deseja alterar?\n'
+                                     '1 - data e horário do voo:\n'
+                                     '2 - aeronave e trecho do voo\n'))
+                if atualiza == 1:
+                    data = input('Digite o nova data: \n')
+                    horario = input('Digite o horário do voo: \n')
+                    atualizar_data_horario_voo(voo_id, data, horario)
+                elif atualiza == 2:
+                    aeronave_id = int(input('Digite o código da aeronave: \n'))
+                    trecho_id = int(input('Digite o código do trecho: \n'))
+                    atualizar_aeronave_trecho_voo(voo_id, aeronave_id, trecho_id)
+              
+                    
 
             elif opcao == 100:
                 print('Saindo...')

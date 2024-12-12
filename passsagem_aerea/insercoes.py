@@ -74,14 +74,14 @@ def cadastrar_aeronave(nome_aeronave, num_poltronas):
 # função para cadastrar trechos
 
 
-def cadastrar_trecho(distancia, duracao, aeroporto_origem, aeroporto_destino):
+def cadastrar_trecho(distancia, duracao, preco, aeroporto_origem, aeroporto_destino):
     conn = conectar()
     cursor = conn.cursor()
 
     cursor.execute('''
-        INSERT INTO trechos (distancia, duracao, aeroporto_origem, aeroporto_destino)
+        INSERT INTO trechos (distancia, duracao, preco, aeroporto_origem, aeroporto_destino)
         VALUES (?,?,?,?)''',
-                   (distancia, duracao, aeroporto_origem, aeroporto_destino))
+                   (distancia, duracao, preco, aeroporto_origem, aeroporto_destino))
 
     conn.commit()
     conn.close()
