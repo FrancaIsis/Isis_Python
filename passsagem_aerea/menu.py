@@ -86,54 +86,121 @@ while True:
                               '27 - alterar voo:\n'
                               '100 - sair\n'))
 
+            # if opcao == 1:
+            #     cpf = input('Informe o CPF do cliente: ')
+            #     nome = input('Informe o nome do cliente: ')
+            #     data_nascimento = input('Informe a data de nascimento: ')
+            #     conectar()
+            #     inserir_cliente(cpf, nome, data_nascimento)
             if opcao == 1:
-                cpf = input('Informe o CPF do cliente: ')
-                nome = input('Informe o nome do cliente: ')
-                data_nascimento = input('Informe a data de nascimento: ')
-                conectar()
-                inserir_cliente(cpf, nome, data_nascimento)
+                while True:
+                    escolha = int(input('O que você deseja cadastrar: \n'
+                                        '1 - Cadastrar clientes\n'
+                                        '2 - Cadastrar aeroportos:\n'
+                                        '3 - Cadastrar cidades: \n'
+                                        '4 - Cadastrar aeronaves:\n'
+                                        '5 - Cadastrar trechos: \n'
+                                        '6 - Cadastrar voos: \n'
+                                        '7 - Cadastrar funcionários: \n'
+                                        '100 - Sair \n'))
+                    if escolha == 1:
+                        cpf = input('Informe o CPF do cliente: ')
+                        nome = input('Informe o nome do cliente: ')
+                        data_nascimento = input('Informe a data de nascimento: ')
+                        conectar()
+                        inserir_cliente(cpf, nome, data_nascimento)
+                    
+                    elif escolha == 2:
+                        nome_aeroporto = input('Digite o nome do aeroporto: ')
+                        cidade_id = input('Digite o codigo da cidade: ')
+                        conectar()
+                        cadastrar_aeroporto(nome_aeroporto, cidade_id)
+                    
+                    elif escolha == 3:
+                        nome_cidade = input('Digite o nome da cidade: ')
+                        estado = input('Digite o Estado: ')
+                        conectar()
+                        cadastrar_cidade(nome_cidade, estado)
+                    
+                    elif escolha == 4:
+                        nome_aeronave = input('Digite o nome/ tipo da aeronave: ')
+                        num_poltronas = input('Digite o numero de poltronas: ')
+                        conectar()
+                        cadastrar_aeronave(nome_aeronave, num_poltronas)
 
-            elif opcao == 2:
-                nome_aeroporto = input('Digite o nome do aeroporto: ')
-                cidade_id = input('Digite o codigo da cidade: ')
-                conectar()
-                cadastrar_aeroporto(nome_aeroporto, cidade_id)
+                    elif escolha == 5:
+                        distancia = input('Digite a distância: ')
+                        duracao = input('Digite o tempo de voo: ')
+                        preco = int(input('Digite o preço do trecho: '))
+                        aeroporto_origem = input('Digite o aeroporto de origem ')
+                        aeroporto_destino = input('Digite o aeroporto de destino ')
+                        conectar()
+                        cadastrar_trecho(distancia, duracao, preco,
+                                        aeroporto_origem, aeroporto_destino)
+                        
+                    elif escolha == 6:
+                        data = input('Informe a data desejada: ')
+                        horario = input('Digite o horário: ')
+                        aeronave_id = input('Digite o código da aeronave: ')
+                        trecho_id = input('Digite o código do trecho: ')
+                        conectar()
+                        cadastrar_voo(data, horario, aeronave_id, trecho_id)
 
-            elif opcao == 3:
-                nome_cidade = input('Digite o nome da cidade: ')
-                estado = input('Digite o Estado: ')
-                conectar()
-                cadastrar_cidade(nome_cidade, estado)
+                    elif escolha == 7:
+                        cpf = input('Informe o CPF do funcionario: ')
+                        nome_funcionario = input('Informe o nome do funcionario: ')
+                        conectar()
+                        cadastrar_funcionario(cpf, nome_funcionario)
 
-            elif opcao == 4:
-                nome_aeronave = input('Digite o nome/ tipo da aeronave: ')
-                num_poltronas = input('Digite o numero de poltronas: ')
-                conectar()
-                cadastrar_aeronave(nome_aeronave, num_poltronas)
+                    elif escolha == 100:
+                        print('Saindo...')
+                        break
 
-            elif opcao == 5:
-                distancia = input('Digite a distância: ')
-                duracao = input('Digite o tempo de voo: ')
-                preco = int(input('Digite o preço do trecho: '))
-                aeroporto_origem = input('Digite o aeroporto de origem ')
-                aeroporto_destino = input('Digite o aeroporto de destino ')
-                conectar()
-                cadastrar_trecho(distancia, duracao, preco,
-                                 aeroporto_origem, aeroporto_destino)
+                    else:
+                        print('Opção inválida.')
+                        break
 
-            elif opcao == 6:
-                data = input('Informe a data desejada: ')
-                horario = input('Digite o horário: ')
-                aeronave_id = input('Digite o código da aeronave: ')
-                trecho_id = input('Digite o código do trecho: ')
-                conectar()
-                cadastrar_voo(data, horario, aeronave_id, trecho_id)
+            # elif opcao == 2:
+            #     nome_aeroporto = input('Digite o nome do aeroporto: ')
+            #     cidade_id = input('Digite o codigo da cidade: ')
+            #     conectar()
+            #     cadastrar_aeroporto(nome_aeroporto, cidade_id)
 
-            elif opcao == 7:
-                cpf = input('Informe o CPF do funcionario: ')
-                nome_funcionario = input('Informe o nome do funcionario: ')
-                conectar()
-                cadastrar_funcionario(cpf, nome_funcionario)
+            # elif opcao == 3:
+            #     nome_cidade = input('Digite o nome da cidade: ')
+            #     estado = input('Digite o Estado: ')
+            #     conectar()
+            #     cadastrar_cidade(nome_cidade, estado)
+
+            # elif opcao == 4:
+            #     nome_aeronave = input('Digite o nome/ tipo da aeronave: ')
+            #     num_poltronas = input('Digite o numero de poltronas: ')
+            #     conectar()
+            #     cadastrar_aeronave(nome_aeronave, num_poltronas)
+
+            # elif opcao == 5:
+            #     distancia = input('Digite a distância: ')
+            #     duracao = input('Digite o tempo de voo: ')
+            #     preco = int(input('Digite o preço do trecho: '))
+            #     aeroporto_origem = input('Digite o aeroporto de origem ')
+            #     aeroporto_destino = input('Digite o aeroporto de destino ')
+            #     conectar()
+            #     cadastrar_trecho(distancia, duracao, preco,
+            #                      aeroporto_origem, aeroporto_destino)
+
+            # elif opcao == 6:
+            #     data = input('Informe a data desejada: ')
+            #     horario = input('Digite o horário: ')
+            #     aeronave_id = input('Digite o código da aeronave: ')
+            #     trecho_id = input('Digite o código do trecho: ')
+            #     conectar()
+            #     cadastrar_voo(data, horario, aeronave_id, trecho_id)
+
+            # elif opcao == 7:
+            #     cpf = input('Informe o CPF do funcionario: ')
+            #     nome_funcionario = input('Informe o nome do funcionario: ')
+            #     conectar()
+            #     cadastrar_funcionario(cpf, nome_funcionario)
 
             elif opcao == 8:
                 
