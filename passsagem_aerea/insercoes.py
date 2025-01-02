@@ -80,7 +80,7 @@ def cadastrar_trecho(distancia, duracao, preco, aeroporto_origem, aeroporto_dest
 
     cursor.execute('''
         INSERT INTO trechos (distancia, duracao, preco, aeroporto_origem, aeroporto_destino)
-        VALUES (?,?,?,?)''',
+        VALUES (?,?,?,?,?)''',
                    (distancia, duracao, preco, aeroporto_origem, aeroporto_destino))
 
     conn.commit()
@@ -122,4 +122,20 @@ def cadastrar_funcionario(cpf, nome_funcionario):
     conn.close()
     print('-'*70)
     print('Funcionario cadastrado com sucesso.')
+    print('-'*70)
+
+# função cadastrar reservas
+def cadastrar_reserva(cpf_cliente, cpf_funcionario, quantidade_passagens, voo_id, trecho_id):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+                   INSERT INTO reservas (cpf_cliente, cpf_funcionario,quantidade_passagens, voo_id, trecho_id)
+                   VALUES (?,?,?,?,?)''',
+                                (cpf_cliente, cpf_funcionario, quantidade_passagens,voo_id, trecho_id))
+    
+    conn.commit()
+    conn.close()
+    print('-'*70)
+    print('Reserva cadastrada com sucesso.')
     print('-'*70)

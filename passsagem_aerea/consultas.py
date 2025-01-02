@@ -173,3 +173,26 @@ def consultar_aeronaves():
     print()
     print('*'*70)
     conn.close()
+
+def consultar_reservas(cpf_cliente):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM reservas WHERE cpf_cliente = ?", (cpf_cliente,))
+    resultados = cursor.fetchall()
+
+    os.system('cls')
+    # criando a tabela
+    tabela = PrettyTable()
+    # obtendo os nomes das colunas
+    colunas = [descricao[0] for descricao in cursor.description]
+    # definindo o nome das colunas a partir da informaçao recebida da linha acima
+    tabela.field_names = colunas
+
+    # adicionando as linhas à tabela
+    for row in resultados:
+        tabela.add_row(row)
+
+    print(tabela)
+    print()
+    print('*'*70)
+    conn.close()

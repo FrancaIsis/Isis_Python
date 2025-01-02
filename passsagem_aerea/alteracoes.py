@@ -171,3 +171,29 @@ def atualizar_aeronave_trecho_voo(aeronave_id, trecho_id, voo_id):
     print('-'*70)
     print('Voo atualizado com sucesso.')
     print('-'*70)
+
+# função para atualizar nome funcionario
+def atualizar_nome_funcionario(nome, cpf):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute('UPDATE funcionarios SET nome_funcionario = ? WHERE cpf = ?',(cpf,nome))
+
+    conn.commit()
+    conn.close()
+    print('-'*70)
+    print('Funcionario atualizado com sucesso.')
+    print('-'*70)
+
+# função para atualizar cpf funcionario
+def atualizar_cpf_funcionario(cpf,novo_cpf):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute('UPDATE funcionarios SET cpf = ? WHERE cpf = ?',(novo_cpf, cpf))
+
+    conn.commit()
+    conn.close()
+    print('-'*70)
+    print('Funcionario atualizado com sucesso.')
+    print('-'*70)
