@@ -22,9 +22,11 @@ while True:
                               '1 - Realizar cadastro: \n'
                               '2 - Realizar reserva:\n'
                               '3 - Consultar reservas:\n'
-                              '100 - sair\n'))
+                              '4 - Cancelar reservas:\n'
+                              '0 - Retornar ao menu anterior.\n'))
 
             if opcao == 1:
+                os.system('cls')
                 cpf = input('Informe o CPF do cliente: ')
                 nome = input('Informe o nome do cliente: ')
                 data_nascimento = input('Informe a data de nascimento: ')
@@ -32,13 +34,19 @@ while True:
                 insercoes.inserir_cliente(cpf, nome, data_nascimento)
 
             elif opcao == 2:
+                os.system('cls')
                 cpf_cliente = input('Informe o seu cpf: ')
                 cpf_funcionario = 000000
+
                 quantidade_passagens = int(
                     input('Informe a quantidade de passagens:'))
+                # consultas.consultar_trechos()
+                # trecho_id = int(input('Digite o código do trecho: '))
                 consultas.consultar_voos()
                 voo_id = int(input('Digite o código do voo: '))
-                consultas.consultar_trechos()
+                consultas.consultar_detalhe_trechos(voo_id)
+                # consultas.consultar_detalhe_reserva(voo_id)
+                # consultas.consultar_trechos()
                 trecho_id = int(input('Digite o código do trecho: '))
                 insercoes.cadastrar_reserva(cpf_cliente, cpf_funcionario,
                                             quantidade_passagens, voo_id, trecho_id)
@@ -46,16 +54,27 @@ while True:
             elif opcao == 3:
                 cpf_cliente = input('Informe o cpf para consultar a reserva:')
                 consultas.consultar_reservas(cpf_cliente)
+                # voo_id = int(input('Digite o código do voo: '))
+                # consultas.consultar_detalhe_reserva(voo_id)
 
-            # elif opcao == 100:
-            #     print('Saindo..')
-            #     break
-            
+            elif opcao == 4:
+                os.system('cls')
+
+                cpf_cliente = input('Digite o cpf do cliente: ')
+                consultas.consultar_reservas(cpf_cliente)
+                reserva_id = int(
+                    input('Digite o código da reserva a ser excluída: '))
+
+                exclusoes.excluir_reserva(reserva_id)
+
+            elif opcao == 0:
+                print('\nRetornando ao menu principal...')
+                break
+
             else:
-                input('Pressione enter para retornar ao menu anterior.')
+                input('Opção inválida.')
                 print()
                 break
-            
 
     elif usuario == 2:
         os.system('cls')
@@ -78,7 +97,7 @@ while True:
                                         '5 - Cadastrar trechos: \n'
                                         '6 - Cadastrar voos: \n'
                                         '7 - Cadastrar funcionários: \n'
-                                        '100 - Sair \n'))
+                                        '0 - Sair \n'))
                     if escolha == 1:
                         os.system('cls')
                         cpf = input('Informe o CPF do cliente: ')
@@ -147,9 +166,9 @@ while True:
                         conexao.conectar()
                         insercoes.cadastrar_funcionario(cpf, nome_funcionario)
 
-                    # elif escolha == 100:
-                    #     print('Saindo...')
-                    #     break
+                    elif escolha == 0:
+                        print('Saindo...')
+                        break
 
                     else:
                         input('Pressione enter para retornar ao menu anterior.')
@@ -167,6 +186,7 @@ while True:
                                         '5 - Trechos: \n'
                                         '6 - Voos: \n'
                                         '7 - Funcionários: \n'
+                                        '8 - Reservas: \n'
                                         '100 - Sair \n'))
 
                     if escolha == 1:
@@ -196,6 +216,10 @@ while True:
                     elif escolha == 7:
                         os.system('cls')
                         consultas.consultar_funcionarios()
+                        
+                    elif escolha == 8:
+                        os.system('cls')
+                        consultas.consultar_reservas_geral()
 
                     # elif escolha == 100:
                     #     print('Saindo...')
@@ -205,7 +229,6 @@ while True:
                         input('Pressione enter para retornar ao menu anterior.')
                         print()
                         break
-                        
 
             elif opcao == 3:
                 os.system('cls')
@@ -219,6 +242,7 @@ while True:
                                         '5 - Trechos: \n'
                                         '6 - Voos: \n'
                                         '7 - Funcionários: \n'
+                                        '8 - Reservas: \n'
                                         '100 - Sair \n'))
 
                     if escolha == 1:
@@ -269,9 +293,15 @@ while True:
                             'Digite o cpf do funcionário a ser excluído: ')
                         exclusoes.excluir_funcionario(cpf)
 
-                    # elif escolha == 100:
-                    #     print('Saindo...')
-                    #     break
+                    elif escolha == 8:
+                        os.system('cls')
+
+                        cpf_cliente = input('Digite o cpf do cliente: ')
+                        consultas.consultar_reservas(cpf_cliente)
+                        reserva_id = int(
+                            input('Digite o código da reserva a ser excluída: '))
+
+                        exclusoes.excluir_reserva(reserva_id)
 
                     else:
                         input('Pressione enter para retornar ao menu anterior.')
@@ -304,7 +334,8 @@ while True:
                         elif atualiza == 2:
                             data_nascimento = input(
                                 'Digite a data de nascimento correta: \n')
-                            atualizar_data_nasc_cliente(cpf, data_nascimento)
+                            alteracoes.atualizar_data_nasc_cliente(
+                                cpf, data_nascimento)
 
                     elif escolha == 2:
                         consultas.consultar_aeroportos()

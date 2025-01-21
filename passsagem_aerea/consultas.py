@@ -196,3 +196,118 @@ def consultar_reservas(cpf_cliente):
     print()
     print('*'*70)
     conn.close()
+    
+def consultar_reservas_geral():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM reservas")
+    resultados = cursor.fetchall()
+
+    os.system('cls')
+    # criando a tabela
+    tabela = PrettyTable()
+    # obtendo os nomes das colunas
+    colunas = [descricao[0] for descricao in cursor.description]
+    # definindo o nome das colunas a partir da informaçao recebida da linha acima
+    tabela.field_names = colunas
+
+    # adicionando as linhas à tabela
+    for row in resultados:
+        tabela.add_row(row)
+
+    print(tabela)
+    print()
+    print('*'*70)
+    conn.close()
+    
+def consultar_detalhe_reserva(cpf_cliente):
+    conn = conectar()
+    cursor = conn.cursor()
+    query = '''
+            SELECT
+                reservas.reserva_id,
+                reservas.quantidade_passagens,
+                reservas.cpf_cliente,
+                ao.nome_aeroporto AS aeroporto_origem,
+                ad.nome_aeroporto AS aeroporto_destino,
+                trechos.preco AS preco,
+                voos.horario AS horario
+            FROM
+                reservas
+            INNER JOIN 
+                voos ON reservas.voo_id = voos.voo_id
+            INNER JOIN
+                trechos ON voos.trecho_id = trechos.trecho_id
+            INNER JOIN 
+                aeroportos ao ON trechos.aeroporto_origem = ao.aeroporto_id
+            INNER JOIN 
+                aeroportos ad ON trechos.aeroporto_destino = ad.aeroporto_id
+            WHERE 
+                reservas.cpf_cliente = ?
+
+                
+            '''
+    cursor.execute(query, (cpf_cliente,))
+    resultados = cursor.fetchall()
+
+    os.system('cls')
+    # criando a tabela
+    tabela = PrettyTable()
+    # obtendo os nomes das colunas
+    colunas = [descricao[0] for descricao in cursor.description]
+    # definindo o nome das colunas a partir da informaçao recebida da linha acima
+    tabela.field_names = colunas
+
+    # adicionando as linhas à tabela
+    for row in resultados:
+        tabela.add_row(row)
+
+    print(tabela)
+    print()
+    print('*'*70)
+    
+    
+    conn.close()
+    
+def consultar_detalhe_trechos(voo_id):
+    conn = conectar()
+    cursor = conn.cursor()
+    query = '''
+            SELECT 
+                voos.voo_id,
+                voos.data,
+                voos.horario,
+                ao.nome_aeroporto AS aeroporto_origem,
+                ad.nome_aeroporto AS aeroporto_destino,
+                trechos.trecho_id
+            FROM 
+                voos
+            INNER JOIN 
+                trechos ON voos.trecho_id = trechos.trecho_id
+            INNER JOIN 
+                aeroportos ao ON trechos.aeroporto_origem = ao.aeroporto_id
+            INNER JOIN 
+                aeroportos ad ON trechos.aeroporto_destino = ad.aeroporto_id
+            WHERE 
+                voos.voo_id = ?
+            '''
+
+    cursor.execute(query, (voo_id,))
+    resultados = cursor.fetchall()
+
+    os.system('cls')
+    # criando a tabela
+    tabela = PrettyTable()
+    # obtendo os nomes das colunas
+    colunas = [descricao[0] for descricao in cursor.description]
+    # definindo o nome das colunas a partir da informaçao recebida da linha acima
+    tabela.field_names = colunas
+
+    # adicionando as linhas à tabela
+    for row in resultados:
+        tabela.add_row(row)
+
+    print(tabela)
+    print()
+    print('*'*70)
+    conn.close()
