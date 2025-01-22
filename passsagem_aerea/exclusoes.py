@@ -110,11 +110,14 @@ def excluir_funcionario(cpf):
 def excluir_reserva(reserva_id):
     conn = conectar()
     cursor = conn.cursor()
-
-    cursor.execute('DELETE FROM reservas WHERE reserva_id = ?', (reserva_id,))
-
-    conn.commit()
-    conn.close()
-    print('-'*70)
-    print('Reserva excluída com sucesso.')
-    print('-'*70)
+    cursor.execute('SELECT reserva_id FROM reservas WHERE reserva_id = ?', (reserva_id,))
+    resultados = cursor.fetchall()
+    if not resultados:
+        print('Reserva não encontrada')
+    else:
+        cursor.execute('DELETE FROM reservas WHERE reserva_id = ?', (reserva_id,))
+        conn.commit()
+        conn.close()
+        print('-'*70)
+        print('Reserva excluída com sucesso.')
+        print('-'*70)
