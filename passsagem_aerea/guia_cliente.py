@@ -28,8 +28,8 @@ def menu_cliente():
     while True:
         opcao = int(input('O que você deseja?\n'
                           '1 - Visualizar destinos: \n'
-                          '2 - Consultar reservas: \n'
-                          '3 - Cancelar reservas: \n'
+                          '2 - Consultar reservas: \n'#ok
+                          '3 - Cancelar reservas: \n' #ok
                           '4 - Atualizar cadastro: \n'
                           '5 - Retornar ao menu anterior, \n'))
         if opcao == 1:
@@ -47,3 +47,34 @@ def menu_cliente():
             reserva_id = int(
                 input('Digite o código da reserva a ser excluída: '))
             exclusoes.excluir_reserva(reserva_id)
+        
+        elif opcao == 4:
+            os.system('cls')
+            consultas.consultar_clientes_por_cpf(cpf)
+            while True:
+                atualiza = int(input('O que deseja alterar?\n'
+                                    '1 - nome\n'
+                                    '2 - data de nascimento\n'
+                                    '3 - CPF\n'
+                                    '4 - Retornar ao menu anterior\n'))
+                if atualiza == 1:
+                    nome = input('Digite o nome correto: \n')
+                    alteracoes.atualizar_nome_cliente(cpf, nome)
+                    consultas.consultar_clientes_por_cpf(cpf)
+                
+                elif atualiza == 2:
+                    data_nascimento = input(
+                    'Digite a data de nascimento correta: \n')
+                    alteracoes.atualizar_data_nasc_cliente(
+                                    cpf, data_nascimento)
+                    consultas.consultar_clientes_por_cpf(cpf)
+                elif atualiza == 3:
+                    novo_cpf = input('Digite o CPF correto: \n')
+                    alteracoes.atualizar_cpf_cliente(novo_cpf,cpf)
+                    consultas.consultar_clientes_por_cpf(novo_cpf)
+                
+                elif atualiza == 4:
+                    print('Saindo...')
+                    break
+                else:
+                    input('Opção inválida.')

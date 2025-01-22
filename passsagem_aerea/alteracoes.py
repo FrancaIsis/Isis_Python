@@ -27,7 +27,32 @@ def atualizar_data_nasc_cliente(data_nascimento, cpf):
     print('-'*70)
     print('Cliente atualizado com sucesso.')
     print('-'*70)
-    
+
+
+# função para atualizar cpf do cliente
+def atualizar_cpf_cliente(novo_cpf,cpf):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute('UPDATE clientes SET cpf = ? WHERE cpf = ?',(novo_cpf,cpf))
+
+    conn.commit()
+    conn.close()
+    print('-'*70)
+    print('Cliente atualizado com sucesso.')
+    print('-'*70)
+
+
+
+
+
+
+
+
+
+
+
+   
 # função para atualizar nome do aeroporto
 def atualizar_nome_aeroporto(nome_aeroporto, aeroporto_id):
     conn = conectar()
